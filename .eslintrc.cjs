@@ -3,7 +3,7 @@ module.exports = {
     extends: [
         'eslint:recommended',
         'plugin:@typescript-eslint/recommended',
-        'plugin:react-hooks/recommended'
+        'plugin:react-hooks/recommended',
     ],
     parser: '@typescript-eslint/parser',
     parserOptions: {
@@ -17,6 +17,7 @@ module.exports = {
     rules: {
         'react-refresh/only-export-components': 'warn',
         '@typescript-eslint/no-empty-interface': 'warn',
-        'react-hooks/rules-of-hooks': 'off'
+        'react-hooks/rules-of-hooks': 'off',
+        'no-useless-escape': 'off'
     }
 };

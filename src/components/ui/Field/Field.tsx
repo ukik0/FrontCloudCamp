@@ -1,13 +1,13 @@
-import { clsx } from '@/utils/helpers';
 import { forwardRef, InputHTMLAttributes, ReactNode } from 'react';
 import { FieldError } from 'react-hook-form';
-import { Typography } from '@/components/ui';
 import ReactInputMask from 'react-input-mask';
+import { Typography } from '@/components/ui';
+import { clsx } from '@/utils/helpers';
 import cl from './Field.module.scss';
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {}
+type InputProps = InputHTMLAttributes<HTMLInputElement>;
 
-interface TextareaProps extends InputHTMLAttributes<HTMLTextAreaElement> {}
+type TextareaProps = InputHTMLAttributes<HTMLTextAreaElement>;
 
 type FieldIntersection = InputProps & TextareaProps;
 type TagType = 'input' | 'textarea';

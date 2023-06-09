@@ -1,9 +1,9 @@
-import { Stepper as StepForm } from '@/components';
-import { Steps } from '@/pages/CreatePage/Steps';
-import { useTypedSelector } from '@/utils/hooks';
-import { useDispatch } from 'react-redux';
-import { getCurrentStep, StatusActions } from '@/store/slices/status';
 import { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { Steps } from './Steps';
+import { Stepper as StepForm } from '@/components';
+import { useTypedSelector } from '@/utils/hooks';
+import { getCurrentStep, StatusActions } from '@/store/slices/status';
 
 const CreatePage = () => {
     return (

@@ -5,8 +5,6 @@ const initialState: StatusSchema = {
     currentStep: 1
 };
 
-export const INITIAL_STEP = 1;
-
 export const statusSlice = createSlice({
     name: 'status',
     initialState,

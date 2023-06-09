@@ -1,14 +1,15 @@
-import { Button, Field, Stack, Typography } from '@/components/ui';
-import { Icons } from '@/components';
+import { useEffect } from 'react';
 import {
     Controller,
     SubmitHandler,
     useFieldArray,
     useForm
 } from 'react-hook-form';
-import { AdvantagesFormFields, AdvantagesSchema } from '@/utils/constants';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch } from 'react-redux';
+import { Icons } from '@/components';
+import { Button, Field, Stack, Typography } from '@/components/ui';
+import { AdvantagesFormFields, AdvantagesSchema } from '@/utils/constants';
 import {
     FormActions,
     getAdvantages,
@@ -16,7 +17,6 @@ import {
     getRadio
 } from '@/store/slices';
 import { useTypedSelector } from '@/utils/hooks';
-import { useEffect } from 'react';
 import cl from './AdvantagesStep.module.scss';
 
 interface AdvantagesStepProps {
@@ -177,7 +177,7 @@ export const AdvantagesStep = ({ next, prev }: AdvantagesStepProps) => {
 
                 <Stack.H justify='between' gap='16' fill>
                     <Button
-                        disabled={isSubmitting}
+                        disabled={!isValid || isSubmitting}
                         onClick={prev}
                         variant='outlined'
                     >

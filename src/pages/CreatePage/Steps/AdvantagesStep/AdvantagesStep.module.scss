@@ -12,8 +12,11 @@
 }
 
 .wrapper {
+    max-width: 370px;
+
     @include mobile {
         position: relative;
+        max-width: 100%;
     }
 
     .field {

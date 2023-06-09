@@ -23,9 +23,9 @@ export const InfoSchema = yup.object().shape({
         .matches(/^[а-яА-ЯёЁa-zA-Z\s]+$/, 'Может содержать только буквы'),
     surname: yup
         .string()
+        .required('Поле обязательно')
         .max(50, 'Максимальная длина 50 символов')
-        .matches(/^[а-яА-ЯёЁa-zA-Z\s]+$/, 'Может содержать только буквы')
-        .required('Поле обязательно'),
+        .matches(/^[а-яА-ЯёЁa-zA-Z\s]+$/, 'Может содержать только буквы'),
     sex: yup
         .mixed<InfoFormFields['sex']>()
         .required('Поле обязательно')

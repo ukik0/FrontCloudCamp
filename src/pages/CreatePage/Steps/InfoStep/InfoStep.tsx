@@ -1,8 +1,9 @@
-import { Button, Field, Select, Stack } from '@/components/ui';
-import { useNavigate } from 'react-router-dom';
-import { InfoFormFields, InfoSchema, ROUTES } from '@/utils/constants';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { Button, Field, Select, Stack } from '@/components/ui';
+import { InfoFormFields, InfoSchema, ROUTES } from '@/utils/constants';
 import {
     FormActions,
     getName,
@@ -10,9 +11,8 @@ import {
     getSex,
     getSurname
 } from '@/store/slices';
-import { useDispatch } from 'react-redux';
-import cl from './InfoStep.module.scss';
 import { useTypedSelector } from '@/utils/hooks';
+import cl from './InfoStep.module.scss';
 
 interface InfoStepProps {
     next: () => void;
@@ -98,7 +98,11 @@ export const InfoStep = ({ next }: InfoStepProps) => {
             </Stack.V>
 
             <Stack.H justify='between' gap='16'>
-                <Button onClick={handleBackClick} variant='outlined'>
+                <Button
+                    disabled={!isValid || isSubmitting}
+                    onClick={handleBackClick}
+                    variant='outlined'
+                >
                     Назад
                 </Button>
                 <Button

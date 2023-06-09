@@ -1,21 +1,22 @@
-import { Button, Field, Modal, Stack, Typography } from '@/components/ui';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { AboutFormField, AboutSchema, ROUTES } from '@/utils/constants';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { clsx } from '@/utils/helpers';
-import { useDispatch } from 'react-redux';
-import { FormActions, getFormState, StatusActions } from '@/store/slices';
 import { useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { Icons } from '@/components';
-import cl from './AboutStep.module.scss';
+import { Button, Field, Modal, Stack, Typography } from '@/components/ui';
+import { FormActions, getFormState, StatusActions } from '@/store/slices';
+import { AboutFormField, AboutSchema, ROUTES } from '@/utils/constants';
 import { useTypedSelector } from '@/utils/hooks';
 import { api } from '@/utils/api';
-import { useNavigate } from 'react-router-dom';
-import { INITIAL_STEP } from '@/store/slices/status/status';
+import { clsx } from '@/utils/helpers';
+import cl from './AboutStep.module.scss';
 
 interface AboutStepProps {
     prev: () => void;
 }
+
+const INITIAL_STEP = 1;
 
 export const AboutStep = ({ prev }: AboutStepProps) => {
     const navigate = useNavigate();
@@ -100,7 +101,7 @@ export const AboutStep = ({ prev }: AboutStepProps) => {
                 </Stack.V>
                 <Stack.H justify='between' gap='16' fill>
                     <Button
-                        disabled={isSubmitting}
+                        disabled={!isValid || isSubmitting}
                         onClick={prev}
                         variant='outlined'
                     >

@@ -27,7 +27,8 @@ export const Profile = ({ fullName, networks }: ProfileProps) => {
                         {networks.map(({ url, name }) => (
                             <Anchor target='_blank' key={url} to={url}>
                                 <Stack.H gap='4'>
-                                    <img src={Icons.Folder} alt='' /> {name}
+                                    <img src={Icons.Folder} alt='folder' />{' '}
+                                    {name}
                                 </Stack.H>
                             </Anchor>
                         ))}

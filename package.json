@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "eslint:fix": "eslint \"**/*.{ts,tsx}\" --fix\n"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.1.0",

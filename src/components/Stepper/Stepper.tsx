@@ -12,8 +12,8 @@ export const Stepper = ({ currentStep, steps, onStepClick }: StepperProps) => {
     return (
         <ul className={cl.stepper}>
             <Stack.H align='start' justify='between'>
-                {steps.map((_, index) => (
-                    <li className={cl.item} key={index}>
+                {steps.map((step, index) => (
+                    <li className={cl.item} key={step}>
                         <div
                             className={clsx({
                                 cls: cl.line,
@@ -21,7 +21,7 @@ export const Stepper = ({ currentStep, steps, onStepClick }: StepperProps) => {
                                     [cl.active]: index + 1 <= currentStep - 1
                                 }
                             })}
-                        ></div>
+                        />
                         <Stack.V gap='16'>
                             <div
                                 className={clsx({
@@ -33,12 +33,12 @@ export const Stepper = ({ currentStep, steps, onStepClick }: StepperProps) => {
                                     }
                                 })}
                                 onClick={() => onStepClick(index + 1)}
-                            ></div>
+                            />
                             <Typography
                                 variant='title-2'
                                 className={cl.currentStep}
                             >
-                                {index + 1}
+                                {step}
                             </Typography>
                         </Stack.V>
                     </li>

@@ -1,4 +1,11 @@
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { FormActions } from '@/store/slices';
 import { Profile } from '@/components';
+import { Button, Field, InputMask, Stack } from '@/components/ui';
+import { useTypedSelector } from '@/utils/hooks';
 import {
     AuthFormFields,
     AuthSchema,
@@ -6,13 +13,6 @@ import {
     Networks,
     ROUTES
 } from '@/utils/constants';
-import { Button, Field, InputMask, Stack } from '@/components/ui';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useNavigate } from 'react-router-dom';
-import { useTypedSelector } from '@/utils/hooks';
-import { useDispatch } from 'react-redux';
-import { FormActions } from '@/store/slices';
 import cl from './HomePage.module.scss';
 
 const HomePage = () => {
@@ -66,7 +66,7 @@ const Form = () => {
                     label='Номер телефона'
                     type='phone'
                     mask='+7 (999) 999-99-99'
-                    placeholder='+7 (999) 999-99-99'
+                    placeholder='+7 (908) 329-57-87'
                 />
 
                 <Field

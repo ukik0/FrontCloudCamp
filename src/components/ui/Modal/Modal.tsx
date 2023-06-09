@@ -1,8 +1,8 @@
-import { Portal } from '@/components/ui';
 import { Dispatch, ReactNode, SetStateAction } from 'react';
+import { Portal } from '@/components/ui';
+import { useLockBody } from '@/utils/hooks';
 import { clsx } from '@/utils/helpers';
 import cl from './Modal.module.scss';
-import { useLockBody } from '@/utils/hooks';
 
 interface ModalProps extends ReactTagProps<'div'> {
     active: boolean;

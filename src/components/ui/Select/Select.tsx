@@ -15,7 +15,7 @@ interface SelectProps<T extends string> {
     onChange?: (value: T) => void;
 }
 
-export const Select = forwardRef<HTMLSelectElement, SelectProps<any>>(
+export const Select = forwardRef<HTMLSelectElement, SelectProps<string>>(
     ({ label, options, error, onChange, ...rest }, ref) => {
         const onChangeHandler = (e: ChangeEvent<HTMLSelectElement>) => {
             if (onChange) {

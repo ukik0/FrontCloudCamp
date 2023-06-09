@@ -1,6 +1,5 @@
 import { ReactNode } from 'react';
 import { clsx } from '@/utils/helpers';
-
 import cl from './Typography.module.scss';
 
 type TagTypes = keyof HTMLElementTagNameMap;
