@@ -2,9 +2,11 @@ import { Stack, Typography } from '@/components/ui';
 import { clsx } from '@/utils/helpers';
 import cl from './Stepper.module.scss';
 
+type Steps = { label: number | string; Content: () => JSX.Element };
+
 interface StepperProps {
     currentStep: number;
-    steps: number[] | string[];
+    steps: Steps[];
     onStepClick: (step: number) => void;
 }
 
@@ -12,8 +14,8 @@ export const Stepper = ({ currentStep, steps, onStepClick }: StepperProps) => {
     return (
         <ul className={cl.stepper}>
             <Stack.H align='start' justify='between'>
-                {steps.map((step, index) => (
-                    <li className={cl.item} key={step}>
+                {steps.map(({ label }, index) => (
+                    <li className={cl.item} key={label}>
                         <div
                             className={clsx({
                                 cls: cl.line,
@@ -38,12 +40,18 @@ export const Stepper = ({ currentStep, steps, onStepClick }: StepperProps) => {
                                 variant='title-2'
                                 className={cl.currentStep}
                             >
-                                {step}
+                                {label}
                             </Typography>
                         </Stack.V>
                     </li>
                 ))}
             </Stack.H>
+            <div>
+                {steps.map(
+                    ({ Content }, index) =>
+                        currentStep === index + 1 && <Content key={index} />
+                )}
+            </div>
         </ul>
     );
 };

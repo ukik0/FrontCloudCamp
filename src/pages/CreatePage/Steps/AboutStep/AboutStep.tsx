@@ -1,31 +1,35 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Icons } from '@/components';
 import { Button, Field, Modal, Stack, Typography } from '@/components/ui';
-import { FormActions, getFormState, StatusActions } from '@/store/slices';
+import {
+    FormActions,
+    getCurrentStep,
+    getFormState,
+    StatusActions
+} from '@/store/slices';
 import { AboutFormField, AboutSchema, ROUTES } from '@/utils/constants';
 import { useTypedSelector } from '@/utils/hooks';
 import { api } from '@/utils/api';
 import { clsx } from '@/utils/helpers';
 import cl from './AboutStep.module.scss';
 
-interface AboutStepProps {
-    prev: () => void;
-}
-
 const INITIAL_STEP = 1;
 
-export const AboutStep = ({ prev }: AboutStepProps) => {
+export const AboutStep = () => {
     const navigate = useNavigate();
+
+    const dispatch = useDispatch();
 
     const [active, setActive] = useState<boolean>(false);
     const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
     const state = useTypedSelector(getFormState);
-    const dispatch = useDispatch();
+    const currentStep = useTypedSelector(getCurrentStep);
+    const message = useTypedSelector((state) => state.form.about);
 
     const {
         register,
@@ -36,7 +40,7 @@ export const AboutStep = ({ prev }: AboutStepProps) => {
         mode: 'all',
         resolver: yupResolver(AboutSchema),
         defaultValues: {
-            field: ''
+            field: message || ''
         }
     });
 
@@ -62,10 +66,11 @@ export const AboutStep = ({ prev }: AboutStepProps) => {
 
             setIsSuccess(true);
             setActive(true);
+            dispatch(FormActions.setAbout(message));
         }
     };
 
-    const handleButtonClick = () => {
+    const handleButtonClick = useCallback(() => {
         if (!isSuccess) {
             setActive(false);
             return;
@@ -73,7 +78,11 @@ export const AboutStep = ({ prev }: AboutStepProps) => {
 
         dispatch(StatusActions.setCurrentStep(INITIAL_STEP));
         return navigate(ROUTES.ROOT);
-    };
+    }, [dispatch, isSuccess, navigate]);
+
+    const prevStepHandler = useCallback(() => {
+        dispatch(StatusActions.setCurrentStep(currentStep - 1));
+    }, [currentStep]);
 
     return (
         <>
@@ -102,7 +111,7 @@ export const AboutStep = ({ prev }: AboutStepProps) => {
                 <Stack.H justify='between' gap='16' fill>
                     <Button
                         disabled={!isValid || isSubmitting}
-                        onClick={prev}
+                        onClick={prevStepHandler}
                         variant='outlined'
                     >
                         Назад

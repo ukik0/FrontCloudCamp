@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import {
     Controller,
     SubmitHandler,
@@ -14,18 +14,17 @@ import {
     FormActions,
     getAdvantages,
     getCheckbox,
-    getRadio
+    getCurrentStep,
+    getRadio,
+    StatusActions
 } from '@/store/slices';
 import { useTypedSelector } from '@/utils/hooks';
 import cl from './AdvantagesStep.module.scss';
 
-interface AdvantagesStepProps {
-    next: () => void;
-    prev: () => void;
-}
-
-export const AdvantagesStep = ({ next, prev }: AdvantagesStepProps) => {
+export const AdvantagesStep = () => {
     const dispatch = useDispatch();
+
+    const currentStep = useTypedSelector(getCurrentStep);
     const advantages = useTypedSelector(getAdvantages);
     const checkbox = useTypedSelector(getCheckbox);
     const radio = useTypedSelector(getRadio);
@@ -54,7 +53,7 @@ export const AdvantagesStep = ({ next, prev }: AdvantagesStepProps) => {
         if (isValid) {
             dispatch(FormActions.setAdvantages(data.advantages));
             dispatch(FormActions.setRadio(data.radio));
-            next();
+            dispatch(StatusActions.setCurrentStep(currentStep + 1));
         }
     };
 
@@ -64,13 +63,23 @@ export const AdvantagesStep = ({ next, prev }: AdvantagesStepProps) => {
         remove(index);
     };
 
-    const handleChangeCheckboxField = (value: number) => {
-        dispatch(FormActions.setCheckbox(value));
-    };
+    const handleChangeCheckboxField = useCallback(
+        (value: number) => {
+            dispatch(FormActions.setCheckbox(value));
+        },
+        [dispatch]
+    );
 
-    const handleChangeRadioField = (value: number) => {
-        dispatch(FormActions.setRadio(value));
-    };
+    const handleChangeRadioField = useCallback(
+        (value: number) => {
+            dispatch(FormActions.setRadio(value));
+        },
+        [dispatch]
+    );
+
+    const prevStepHandler = useCallback(() => {
+        dispatch(StatusActions.setCurrentStep(currentStep - 1));
+    }, [currentStep]);
 
     useEffect(() => {
         append('');
@@ -178,7 +187,7 @@ export const AdvantagesStep = ({ next, prev }: AdvantagesStepProps) => {
                 <Stack.H justify='between' gap='16' fill>
                     <Button
                         disabled={!isValid || isSubmitting}
-                        onClick={prev}
+                        onClick={prevStepHandler}
                         variant='outlined'
                     >
                         Назад
