@@ -1,0 +1,84 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    max-width: 300px;
+
+    @include mobile {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    &.fill {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .label {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        color: $text-primary-color;
+    }
+
+    .field {
+        padding: 12px;
+        border-radius: 4px;
+        outline: none;
+        border: $border-alpha;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        color: $text-secondary-color;
+        max-width: 300px;
+        width: 100%;
+        transition: $transition;
+
+        &.fill {
+            max-width: 100%;
+        }
+
+        @include mobile {
+            max-width: 100%;
+        }
+
+        &:focus {
+            background: rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(0, 0, 0, 0.16);
+        }
+
+        &:hover {
+            background: rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(0, 0, 0, 0.16);
+        }
+
+        &::placeholder {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 20px;
+            color: $text-secondary-color;
+        }
+
+        &.darken {
+            background: rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(0, 0, 0, 0.16);
+
+            &:focus {
+                background: $bg-secondary;
+            }
+
+            &:hover {
+                background: $bg-secondary;
+            }
+        }
+
+        &.fill {
+            max-width: 100%;
+            width: 100%;
+        }
+    }
+}

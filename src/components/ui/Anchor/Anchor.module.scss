@@ -1,0 +1,45 @@
+@import 'styles/variables';
+
+.anchor {
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    color: $additional;
+    border-radius: 4px;
+    transition: $transition;
+
+    &.link {
+        &:hover {
+            text-decoration: underline $additional;
+        }
+    }
+
+    &.contained {
+        color: $text-white-color;
+        background: $additional;
+        padding: 12px 16px;
+        font-size: 14px;
+        line-height: 20px;
+        cursor: pointer;
+        border: $border-transparent;
+
+        &:hover {
+            color: $additional;
+            background: transparent;
+            border: $border-additional;
+        }
+    }
+
+    &.outlined {
+        @extend .contained;
+        color: $additional;
+        background: transparent;
+        border: $border-additional;
+
+        &:hover {
+            color: $text-white-color;
+            background: $additional;
+        }
+    }
+}

@@ -1,0 +1,85 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+.stepper {
+    margin-bottom: 66px;
+
+    @include small-tablet {
+        margin-bottom: 25px;
+    }
+}
+
+.item {
+    display: flex;
+    align-items: flex-start;
+    flex: 1;
+    position: relative;
+    z-index: 5;
+    transition: 0.3s all ease;
+
+    .line {
+        position: absolute;
+        width: 102%;
+        height: 8px;
+        background: $bg-silver-transparent;
+        border-radius: 8px;
+        z-index: -1;
+        top: 4px;
+
+        &.active {
+            background: $additional;
+        }
+    }
+
+    &:last-child {
+        flex: 0;
+    }
+
+    .circle {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        position: relative;
+        background: $bg-silver;
+        cursor: pointer;
+
+        &.active {
+            background: $additional;
+
+            &::after {
+                @include pseudo {
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 3px;
+                    height: 3px;
+                    background: $text-white-color;
+                }
+            }
+        }
+
+        &.success {
+            background: $additional;
+
+            &::after {
+                @include pseudo {
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 10px;
+                    height: 8px;
+                    background: $text-white-color;
+                    background: url('../common/Icons/assets/checkbox.svg') no-repeat center;
+                    background-size: cover;
+                }
+            }
+        }
+    }
+
+    .step {
+        color: $additional;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 20px;
+    }
+}

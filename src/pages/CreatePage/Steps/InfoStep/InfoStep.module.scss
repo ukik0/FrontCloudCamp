@@ -1,0 +1,9 @@
+@import "styles/mixins";
+
+.fields {
+    margin-bottom: 88px;
+
+    @include small-tablet {
+        margin-bottom: 25px;
+    }
+}

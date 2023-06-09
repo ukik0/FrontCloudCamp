@@ -1,0 +1,32 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+.add {
+    border: $border-additional !important;
+}
+
+.field {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.wrapper {
+    @include mobile {
+        position: relative;
+    }
+
+    .field {
+        padding-right: 50px;
+    }
+
+    .trash {
+        @include mobile {
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 4;
+            max-width: 60px;
+        }
+    }
+}

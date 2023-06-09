@@ -1,0 +1,33 @@
+/* font */
+$font-family: SB Sans Interface;
+
+/* text */
+$text-white-color: #fff;
+$text-black-color: #000;
+$text-primary-color: #333;
+$text-ebony-color: #212830;
+$text-secondary-color: rgba($text-black-color, 0.48);
+$text-uppercase-color: #212830;
+$text-error-color: red;
+
+
+/* background */
+$bg-primary: #f4f4f5;
+$bg-secondary: #fff;
+$bg-silver: #A6A6A6;
+$bg-silver-transparent: rgba(0, 0, 0, 0.16);
+$bg-success: rgba(5, 174, 113, 0.15);
+$bg-failed: rgba(232, 78, 88, 0.15);
+
+
+$additional: #5558fa;
+$avatar: #d5e4f7;
+$box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.08);
+
+/* borders */
+$border-additional: 1px solid $additional;
+$border-transparent: 1px solid transparent;
+$border-alpha: 1px solid rgba(0, 0, 0, 0.16);
+
+/* transitions */
+$transition: 0.3s all ease;

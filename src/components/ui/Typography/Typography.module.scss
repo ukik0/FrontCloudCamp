@@ -1,0 +1,34 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+.title-1 {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 26px;
+    color: $text-primary-color;
+}
+
+.title-2 {
+    @extend .title-1;
+
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.uppercase {
+    @extend .title-2;
+
+    font-size: 40px;
+    line-height: 52px;
+    color: $text-uppercase-color;
+
+    @include mobile {
+        font-size: 30px;
+    }
+}
+
+.error {
+    @extend .title-2;
+    color: $text-error-color;
+}

@@ -1,0 +1,17 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+.wrapper {
+    padding: 62px 110px 80px;
+    background: $bg-secondary;
+    border-radius: 24px;
+    margin-top: 24px;
+
+    @include tablet {
+        padding: 32px 55px 40px;
+    }
+
+    @include small-tablet {
+        padding: 16px 22px 20px;
+    }
+}
