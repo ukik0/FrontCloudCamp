@@ -62,6 +62,8 @@ export const AboutStep = () => {
 
             if (!response.ok) {
                 setIsSuccess(false);
+                setActive(true);
+                return;
             }
 
             setIsSuccess(true);

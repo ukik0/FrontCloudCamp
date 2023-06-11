@@ -7,7 +7,7 @@ const initialState: FormSchema = {
     surname: null,
     phone: null,
     email: null,
-    sex: null,
+    sex: 'man',
     about: null,
     radio: 1,
     advantages: [],

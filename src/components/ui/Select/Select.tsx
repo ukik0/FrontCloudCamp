@@ -42,9 +42,6 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps<string>>(
                         onChange={onChangeHandler}
                         {...rest}
                     >
-                        <option value='' disabled selected>
-                            Не выбрано
-                        </option>
                         {options?.map((option) => (
                             <option
                                 className={cl.option}

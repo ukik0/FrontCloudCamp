@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
@@ -15,7 +16,6 @@ import {
 } from '@/store/slices';
 import { useTypedSelector } from '@/utils/hooks';
 import cl from './InfoStep.module.scss';
-import { useCallback } from 'react';
 
 const Options = [
     { value: 'man', content: 'man' },
@@ -88,8 +88,8 @@ export const InfoStep = () => {
                         <Select
                             label='Sex'
                             options={Options}
-                            {...register('sex')}
                             error={errors.sex}
+                            {...register('sex')}
                             {...field}
                         />
                     )}

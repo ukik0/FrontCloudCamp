@@ -13,7 +13,7 @@ interface StepperProps {
 export const Stepper = ({ currentStep, steps, onStepClick }: StepperProps) => {
     return (
         <ul className={cl.stepper}>
-            <Stack.H align='start' justify='between'>
+            <Stack.H align='start' justify='between' className={cl.steps}>
                 {steps.map(({ label }, index) => (
                     <li className={cl.item} key={label}>
                         <div
@@ -46,7 +46,7 @@ export const Stepper = ({ currentStep, steps, onStepClick }: StepperProps) => {
                     </li>
                 ))}
             </Stack.H>
-            <div>
+            <div className={cl.content}>
                 {steps.map(
                     ({ Content }, index) =>
                         currentStep === index + 1 && <Content key={index} />

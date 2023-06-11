@@ -1,12 +1,8 @@
 @import 'styles/variables';
 @import 'styles/mixins';
 
-.stepper {
+.steps {
     margin-bottom: 66px;
-
-    @include small-tablet {
-        margin-bottom: 25px;
-    }
 }
 
 .item {
@@ -15,7 +11,6 @@
     flex: 1;
     position: relative;
     z-index: 5;
-    transition: 0.3s all ease;
 
     .line {
         position: absolute;
@@ -26,8 +21,22 @@
         z-index: -1;
         top: 4px;
 
+        &::after {
+            @include pseudo {
+                left: 0;
+                top: 0;
+                height: 8px;
+                width: 100%;
+                background: $additional;
+                max-width: 0;
+                transition: $transition;
+            }
+        }
+
         &.active {
-            background: $additional;
+            &::after {
+                max-width: 100%;
+            }
         }
     }
 
@@ -45,6 +54,7 @@
 
         &.active {
             background: $additional;
+            transition: $transition;
 
             &::after {
                 @include pseudo {

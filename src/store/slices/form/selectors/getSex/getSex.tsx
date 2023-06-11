@@ -1,3 +1,3 @@
 import { RootState } from '@/store';
 
-export const getSex = (state: RootState) => state.form.sex || undefined;
+export const getSex = (state: RootState) => state.form.sex;
