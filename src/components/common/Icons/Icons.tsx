@@ -1,10 +1,17 @@
+import Folder from './assets/Folder.svg';
+import Cross from './assets/Cross.svg';
+import Trash from './assets/Trash.svg';
+import Close from './assets/Close.svg';
+import Success from './assets/Success.svg';
+import Failed from './assets/Failed.svg';
+
 const Icons = {
-    Folder: new URL('./assets/Folder.svg', import.meta.url).href,
-    Cross: new URL('./assets/Cross.svg ', import.meta.url).href,
-    Trash: new URL('./assets/Trash.svg ', import.meta.url).href,
-    Close: new URL('./assets/Close.svg ', import.meta.url).href,
-    Success: new URL('./assets/Success.svg ', import.meta.url).href,
-    Failed: new URL('./assets/Failed.svg ', import.meta.url).href
+    Folder,
+    Cross,
+    Trash,
+    Close,
+    Success,
+    Failed
 };
 
 export default Icons;
