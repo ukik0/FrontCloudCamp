@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 import {
     Controller,
     SubmitHandler,
@@ -58,8 +58,7 @@ export const AdvantagesStep = () => {
     };
 
     const handleRemoveField = (index: number) => {
-        if (index === 0) return;
-
+        console.log(index);
         remove(index);
     };
 
@@ -80,10 +79,6 @@ export const AdvantagesStep = () => {
     const prevStepHandler = useCallback(() => {
         dispatch(StatusActions.setCurrentStep(currentStep - 1));
     }, [currentStep]);
-
-    useEffect(() => {
-        append('');
-    }, []);
 
     return (
         <form onSubmit={handleSubmit(onSubmitHandler)}>
@@ -109,25 +104,27 @@ export const AdvantagesStep = () => {
                                         error={errors.advantages?.[index]}
                                         className={cl.field}
                                     />
-                                    {index > 0 && (
-                                        <Button
-                                            onClick={() =>
-                                                handleRemoveField(index)
-                                            }
-                                            icon={Icons.Trash}
-                                            variant='icon'
-                                            className={cl.trash}
-                                        />
-                                    )}
+                                    <Button
+                                        onClick={() => handleRemoveField(index)}
+                                        icon={Icons.Trash}
+                                        variant='icon'
+                                        className={cl.trash}
+                                        type='submit'
+                                        id={`button-remove-${index + 1}`}
+                                    />
                                 </Stack.H>
                             )}
                         />
                     ))}
+                    <Typography variant='error'>
+                        {errors.advantages && errors.advantages.message}
+                    </Typography>
                     <Button
                         variant='icon'
                         icon={Icons.Cross}
                         className={cl.add}
                         onClick={() => append('')}
+                        id='button add'
                     />
                 </Stack.V>
 
@@ -147,6 +144,9 @@ export const AdvantagesStep = () => {
                                     onChange={() =>
                                         handleChangeCheckboxField(index + 1)
                                     }
+                                    id={`field-checkbox-group-option-${
+                                        index + 1
+                                    }`}
                                 />
                                 <Typography variant='title-2'>
                                     {index + 1}
@@ -160,7 +160,7 @@ export const AdvantagesStep = () => {
 
                 <Stack.V gap='8' align='start'>
                     <Typography variant='title-2'>Radio group</Typography>
-                    {Array.from({ length: 3 })
+                    {Array.from({ length: 3 }, (_, index) => index + 1)
                         .fill(0)
                         .map((_, index) => (
                             <Stack.H key={index} gap='8'>
@@ -168,10 +168,11 @@ export const AdvantagesStep = () => {
                                     type='radio'
                                     value={index + 1}
                                     {...register('radio')}
-                                    checked={radio == index + 1}
+                                    checked={radio === index + 1}
                                     onChange={() =>
                                         handleChangeRadioField(index + 1)
                                     }
+                                    id={`field-radio-group-option-${index + 1}`}
                                 />
                                 <Typography variant='title-2'>
                                     {index + 1}
@@ -189,6 +190,7 @@ export const AdvantagesStep = () => {
                         disabled={!isValid || isSubmitting}
                         onClick={prevStepHandler}
                         variant='outlined'
+                        id='button-back'
                     >
                         Назад
                     </Button>
@@ -196,6 +198,7 @@ export const AdvantagesStep = () => {
                         disabled={isSubmitting}
                         type='submit'
                         variant='contained'
+                        id='button-next'
                     >
                         Далее
                     </Button>

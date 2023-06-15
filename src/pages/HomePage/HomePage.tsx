@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { FormActions } from '@/store/slices';
+import { FormActions, getEmail } from '@/store/slices';
 import { Profile } from '@/components';
 import { Button, Field, InputMask, Stack } from '@/components/ui';
 import { useTypedSelector } from '@/utils/hooks';
@@ -28,8 +28,9 @@ export default HomePage;
 
 const Form = () => {
     const navigate = useNavigate();
-    const email = useTypedSelector((state) => state.form.email) || '';
     const dispatch = useDispatch();
+
+    const email = useTypedSelector(getEmail);
 
     const {
         register,
@@ -62,7 +63,6 @@ const Form = () => {
                 <InputMask
                     {...register('phone')}
                     error={errors.phone}
-                    variant='darken'
                     label='Номер телефона'
                     type='phone'
                     mask='+7 (999) 999-99-99'
@@ -72,10 +72,10 @@ const Form = () => {
                 <Field
                     {...register('email')}
                     error={errors.email}
-                    variant='darken'
                     label='Email'
                     type='email'
                     placeholder='ctaricc@mail.ru'
+                    disabled
                 />
             </Stack.V>
 
@@ -83,6 +83,7 @@ const Form = () => {
                 disabled={isSubmitting}
                 variant='contained'
                 className={cl.btn}
+                id='button-start'
                 type='submit'
             >
                 Начать

@@ -42,18 +42,23 @@
             max-width: 100%;
         }
 
+        &:disabled {
+            background: rgba(0, 0, 0, 0.04);
+            border: $border-alpha;
+        }
+
         @include mobile {
             max-width: 100%;
         }
 
         &:focus {
             background: rgba(0, 0, 0, 0.04);
-            border: 1px solid rgba(0, 0, 0, 0.16);
+            border: $border-alpha;
         }
 
         &:hover {
             background: rgba(0, 0, 0, 0.04);
-            border: 1px solid rgba(0, 0, 0, 0.16);
+            border: $border-alpha;
         }
 
         &::placeholder {
@@ -65,7 +70,7 @@
 
         &.darken {
             background: rgba(0, 0, 0, 0.04);
-            border: 1px solid rgba(0, 0, 0, 0.16);
+            border: $border-alpha;
 
             &:focus {
                 background: $bg-secondary;

@@ -6,6 +6,7 @@ import cl from './Select.module.scss';
 interface Options<T extends string> {
     value: T;
     content: string;
+    id?: string;
 }
 
 interface SelectProps<T extends string> {
@@ -13,10 +14,11 @@ interface SelectProps<T extends string> {
     label: string;
     error?: FieldError;
     onChange?: (value: T) => void;
+    id?: string;
 }
 
 export const Select = forwardRef<HTMLSelectElement, SelectProps<string>>(
-    ({ label, options, error, onChange, ...rest }, ref) => {
+    ({ label, options, error, onChange, id, ...rest }, ref) => {
         const onChangeHandler = (e: ChangeEvent<HTMLSelectElement>) => {
             if (onChange) {
                 onChange(e.target.value as string);
@@ -40,6 +42,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps<string>>(
                         ref={ref}
                         className={cl.select}
                         onChange={onChangeHandler}
+                        id={id}
                         {...rest}
                     >
                         {options?.map((option) => (
@@ -47,6 +50,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps<string>>(
                                 className={cl.option}
                                 value={option.value}
                                 key={option.value}
+                                id={option.id}
                             >
                                 {option.content}
                             </option>

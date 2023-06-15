@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { ChangeEvent, useCallback, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +9,7 @@ import {
     FormActions,
     getCurrentStep,
     getFormState,
+    getMessage,
     StatusActions
 } from '@/store/slices';
 import { AboutFormField, AboutSchema, ROUTES } from '@/utils/constants';
@@ -29,7 +30,7 @@ export const AboutStep = () => {
 
     const state = useTypedSelector(getFormState);
     const currentStep = useTypedSelector(getCurrentStep);
-    const message = useTypedSelector((state) => state.form.about);
+    const message = useTypedSelector(getMessage);
 
     const {
         register,
@@ -40,7 +41,7 @@ export const AboutStep = () => {
         mode: 'all',
         resolver: yupResolver(AboutSchema),
         defaultValues: {
-            field: message || ''
+            field: message
         }
     });
 
@@ -82,6 +83,15 @@ export const AboutStep = () => {
         return navigate(ROUTES.ROOT);
     }, [dispatch, isSuccess, navigate]);
 
+    const handleChangeMessage = useCallback(
+        (
+            e: ChangeEvent<HTMLInputElement> & ChangeEvent<HTMLTextAreaElement>
+        ) => {
+            dispatch(FormActions.setAbout(e.target.value));
+        },
+        [dispatch]
+    );
+
     const prevStepHandler = useCallback(() => {
         dispatch(StatusActions.setCurrentStep(currentStep - 1));
     }, [currentStep]);
@@ -97,6 +107,9 @@ export const AboutStep = () => {
                         className={cl.field}
                         {...register('field')}
                         error={errors.field}
+                        id='field-about'
+                        value={message}
+                        onChange={handleChangeMessage}
                     />
 
                     <Typography
@@ -115,6 +128,7 @@ export const AboutStep = () => {
                         disabled={!isValid || isSubmitting}
                         onClick={prevStepHandler}
                         variant='outlined'
+                        id='button-back'
                     >
                         Назад
                     </Button>
@@ -122,6 +136,7 @@ export const AboutStep = () => {
                         disabled={isSubmitting}
                         type='submit'
                         variant='contained'
+                        id='button-send'
                     >
                         Отправить
                     </Button>
@@ -158,9 +173,23 @@ export const AboutStep = () => {
                     </Stack.H>
 
                     <Stack.H>
-                        <Button onClick={handleButtonClick} variant='contained'>
-                            {isSuccess ? 'На главную' : 'Закрыть'}
-                        </Button>
+                        {isSuccess ? (
+                            <Button
+                                onClick={handleButtonClick}
+                                variant='contained'
+                                id='button-to-main'
+                            >
+                                На главную
+                            </Button>
+                        ) : (
+                            <Button
+                                onClick={handleButtonClick}
+                                variant='contained'
+                                id='button-close'
+                            >
+                                Закрыть
+                            </Button>
+                        )}
                     </Stack.H>
                 </Stack.V>
             </Modal>

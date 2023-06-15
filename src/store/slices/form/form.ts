@@ -8,10 +8,10 @@ const initialState: FormSchema = {
     phone: null,
     email: null,
     sex: 'man',
-    about: null,
+    about: '',
     radio: 1,
-    advantages: [],
-    checkbox: [1]
+    advantages: ['Value', 'Value', 'Value'],
+    checkbox: []
 };
 
 export const formSlice = createSlice({

@@ -6,3 +6,5 @@ export * from './getAdvantages/getAdvantages';
 export * from './getCheckbox/getCheckbox';
 export * from './getRadio/getRadio';
 export * from './getFormState/getFormState';
+export * from './getMessage/getMessage';
+export * from './getEmail/getEmail';

@@ -4,7 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Button, Field, Select, Stack } from '@/components/ui';
-import { InfoFormFields, InfoSchema, ROUTES } from '@/utils/constants';
+import { InfoFormFields, InfoSchema, Options, ROUTES } from '@/utils/constants';
 import {
     FormActions,
     getCurrentStep,
@@ -16,11 +16,6 @@ import {
 } from '@/store/slices';
 import { useTypedSelector } from '@/utils/hooks';
 import cl from './InfoStep.module.scss';
-
-const Options = [
-    { value: 'man', content: 'man' },
-    { value: 'woman', content: 'woman' }
-];
 
 export const InfoStep = () => {
     const navigate = useNavigate();
@@ -66,20 +61,23 @@ export const InfoStep = () => {
         <form onSubmit={handleSubmit(onSubmitHandler)}>
             <Stack.V gap='24' className={cl.fields} align='start'>
                 <Field
-                    label='Name'
+                    label='Nickname'
                     placeholder='Nickname'
+                    id='field-nickname'
                     {...register('nickname')}
                     error={errors.nickname}
                 />
                 <Field
-                    label='Nickname'
+                    label='Name'
                     placeholder='Name'
+                    id='field-name'
                     {...register('name')}
                     error={errors.name}
                 />
                 <Field
                     label='Surname'
                     placeholder='Surname'
+                    id='field-surname'
                     {...register('surname')}
                     error={errors.surname}
                 />
@@ -89,6 +87,7 @@ export const InfoStep = () => {
                             label='Sex'
                             options={Options}
                             error={errors.sex}
+                            id='field-sex'
                             {...register('sex')}
                             {...field}
                         />
@@ -103,6 +102,7 @@ export const InfoStep = () => {
                     disabled={!isValid || isSubmitting}
                     onClick={handleBackClick}
                     variant='outlined'
+                    id='button-back'
                 >
                     Назад
                 </Button>
@@ -110,6 +110,7 @@ export const InfoStep = () => {
                     disabled={isSubmitting}
                     type='submit'
                     variant='contained'
+                    id='button-next'
                 >
                     Далее
                 </Button>

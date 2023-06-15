@@ -8,5 +8,5 @@ export interface FormSchema {
     advantages: string[];
     radio: number | null;
     checkbox: number[];
-    about: string | null;
+    about: string | undefined;
 }
