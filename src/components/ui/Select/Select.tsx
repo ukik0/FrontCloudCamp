@@ -1,6 +1,6 @@
-import { Typography } from '@/components/ui';
-import { FieldError } from 'react-hook-form';
 import { ChangeEvent, forwardRef } from 'react';
+import { FieldError } from 'react-hook-form';
+import { Typography } from '@/components/ui';
 import cl from './Select.module.scss';
 
 interface Options<T extends string> {

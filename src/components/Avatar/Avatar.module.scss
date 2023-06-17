@@ -1,0 +1,45 @@
+@import 'styles/variables';
+
+.wrapper {
+    width: 100%;
+    border-radius: 50%;
+    background: $avatar;
+
+    &.md {
+        max-width: 80px;
+        height: 80px;
+    }
+
+    &.xl {
+        max-width: 160px;
+        height: 160px;
+    }
+
+    &.sm {
+        max-width: 40px;
+        height: 40px;
+    }
+}
+
+.avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+    background: transparent;
+    padding: 14px;
+}
+
+.initials {
+    .md {
+        font-size: 40px;
+    }
+
+    .xl {
+        font-size: 60px;
+    }
+
+    .sm {
+        font-size: 15px;
+    }
+}
