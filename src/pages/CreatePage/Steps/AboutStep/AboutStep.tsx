@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
@@ -83,15 +83,6 @@ export const AboutStep = () => {
         return navigate(ROUTES.ROOT);
     }, [dispatch, isSuccess, navigate]);
 
-    const handleChangeMessage = useCallback(
-        (
-            e: ChangeEvent<HTMLInputElement> & ChangeEvent<HTMLTextAreaElement>
-        ) => {
-            dispatch(FormActions.setAbout(e.target.value));
-        },
-        [dispatch]
-    );
-
     const prevStepHandler = useCallback(() => {
         dispatch(StatusActions.setCurrentStep(currentStep - 1));
     }, [currentStep]);
@@ -108,8 +99,6 @@ export const AboutStep = () => {
                         {...register('field')}
                         error={errors.field}
                         id='field-about'
-                        value={message}
-                        onChange={handleChangeMessage}
                     />
 
                     <Typography
