@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { FormActions, getEmail } from '@/store/slices';
+import { FormActions, getEmail, getPhone } from '@/store/slices';
 import { Profile } from '@/components';
 import { Button, Field, InputMask, Stack } from '@/components/ui';
 import { useTypedSelector } from '@/utils/hooks';
@@ -31,16 +31,19 @@ const Form = () => {
     const dispatch = useDispatch();
 
     const email = useTypedSelector(getEmail);
+    const phone = useTypedSelector(getPhone);
 
     const {
         register,
         handleSubmit,
+        control,
         formState: { errors, isValid, isSubmitting }
     } = useForm<AuthFormFields>({
         mode: 'onChange',
         resolver: yupResolver(AuthSchema),
         defaultValues: {
-            email
+            email,
+            phone
         }
     });
 
@@ -60,13 +63,19 @@ const Form = () => {
                 gap='24'
                 className={cl.fields}
             >
-                <InputMask
-                    {...register('phone')}
-                    error={errors.phone}
-                    label='Номер телефона'
-                    type='phone'
-                    mask='+7 (999) 999-99-99'
-                    placeholder='+7 (908) 329-57-87'
+                <Controller
+                    name='phone'
+                    control={control}
+                    render={({ field }) => (
+                        <InputMask
+                            label='Номер телефона'
+                            type='phone'
+                            mask='+7 (999) 999-99-99'
+                            placeholder='+7 (908) 329-57-87'
+                            error={errors.phone}
+                            {...field}
+                        />
+                    )}
                 />
 
                 <Field

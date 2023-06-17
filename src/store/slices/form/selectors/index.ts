@@ -8,3 +8,4 @@ export * from './getRadio/getRadio';
 export * from './getFormState/getFormState';
 export * from './getMessage/getMessage';
 export * from './getEmail/getEmail';
+export * from './getPhone/getPhone';

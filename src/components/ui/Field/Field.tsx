@@ -104,6 +104,7 @@ export const InputMask = forwardRef<
                     ]
                 })}
                 mask={mask!}
+                alwaysShowMask
                 {...rest}
             />
 
