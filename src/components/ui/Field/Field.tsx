@@ -75,15 +75,8 @@ export const Field = forwardRef<
     }
 );
 
-interface MaskFieldProps extends InputHTMLAttributes<HTMLInputElement> {
-    tag?: TagType;
-    label?: string;
-    variant?: FieldVariants;
-    className?: string;
-    children?: ReactNode;
+interface MaskFieldProps extends FieldProps {
     mask?: string | Array<string | RegExp>;
-    error?: FieldError;
-    fill?: boolean;
 }
 
 export const InputMask = forwardRef<
