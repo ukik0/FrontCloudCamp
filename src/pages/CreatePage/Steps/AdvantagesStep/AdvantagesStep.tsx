@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import {
     Controller,
     SubmitHandler,
@@ -7,9 +7,6 @@ import {
 } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch } from 'react-redux';
-import { Icons } from '@/components';
-import { Button, Field, Stack, Typography } from '@/components/ui';
-import { AdvantagesFormFields, AdvantagesSchema } from '@/utils/constants';
 import {
     FormActions,
     getAdvantages,
@@ -18,6 +15,9 @@ import {
     getRadio,
     StatusActions
 } from '@/store/slices';
+import { Button, Field, Stack, Typography } from '@/components/ui';
+import { Icons } from '@/components';
+import { AdvantagesFormFields, AdvantagesSchema } from '@/utils/constants';
 import { useTypedSelector } from '@/utils/hooks';
 import cl from './AdvantagesStep.module.scss';
 
@@ -33,6 +33,7 @@ export const AdvantagesStep = () => {
         register,
         handleSubmit,
         control,
+        getValues,
         formState: { errors, isValid, isSubmitting }
     } = useForm<AdvantagesFormFields>({
         mode: 'all',
@@ -49,18 +50,18 @@ export const AdvantagesStep = () => {
         control
     });
 
-    const onSubmitHandler: SubmitHandler<AdvantagesFormFields> = (data) => {
+    const onSubmitHandler: SubmitHandler<AdvantagesFormFields> = () => {
         if (isValid) {
-            dispatch(FormActions.setAdvantages(data.advantages));
-            dispatch(FormActions.setRadio(data.radio));
             dispatch(StatusActions.setCurrentStep(currentStep + 1));
         }
     };
 
-    const handleRemoveField = (index: number) => {
-        console.log(index);
-        remove(index);
-    };
+    const handleRemoveField = useCallback(
+        (index: number) => {
+            remove(index);
+        },
+        [remove]
+    );
 
     const handleChangeCheckboxField = useCallback(
         (value: number) => {
@@ -79,6 +80,15 @@ export const AdvantagesStep = () => {
     const prevStepHandler = useCallback(() => {
         dispatch(StatusActions.setCurrentStep(currentStep - 1));
     }, [currentStep]);
+
+    useEffect(() => {
+        return () => {
+            const { advantages, radio } = getValues();
+
+            dispatch(FormActions.setAdvantages(advantages));
+            dispatch(FormActions.setRadio(+radio));
+        };
+    }, []);
 
     return (
         <form onSubmit={handleSubmit(onSubmitHandler)}>
@@ -136,17 +146,17 @@ export const AdvantagesStep = () => {
                             <Stack.H key={index} gap='8' fill={false}>
                                 <Field
                                     type='checkbox'
-                                    {...register('checkbox')}
-                                    value={index + 1}
-                                    checked={checkbox.some(
-                                        (value) => value === index + 1
-                                    )}
-                                    onChange={() =>
-                                        handleChangeCheckboxField(index + 1)
-                                    }
                                     id={`field-checkbox-group-option-${
                                         index + 1
                                     }`}
+                                    {...register('checkbox')}
+                                    onChange={() =>
+                                        handleChangeCheckboxField(index + 1)
+                                    }
+                                    checked={checkbox.some(
+                                        (value) => value === index + 1
+                                    )}
+                                    value={index + 1}
                                 />
                                 <Typography variant='title-2'>
                                     {index + 1}
@@ -160,7 +170,7 @@ export const AdvantagesStep = () => {
 
                 <Stack.V gap='8' align='start'>
                     <Typography variant='title-2'>Radio group</Typography>
-                    {Array.from({ length: 3 }, (_, index) => index + 1)
+                    {Array.from({ length: 3 })
                         .fill(0)
                         .map((_, index) => (
                             <Stack.H key={index} gap='8'>

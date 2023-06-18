@@ -1,10 +1,8 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { Button, Field, Select, Stack } from '@/components/ui';
-import { InfoFormFields, InfoSchema, Options, ROUTES } from '@/utils/constants';
 import {
     FormActions,
     getCurrentStep,
@@ -14,6 +12,8 @@ import {
     getSurname,
     StatusActions
 } from '@/store/slices';
+import { Button, Field, Select, Stack } from '@/components/ui';
+import { InfoFormFields, InfoSchema, Options, ROUTES } from '@/utils/constants';
 import { useTypedSelector } from '@/utils/hooks';
 import cl from './InfoStep.module.scss';
 
@@ -31,6 +31,7 @@ export const InfoStep = () => {
         register,
         handleSubmit,
         control,
+        getValues,
         formState: { errors, isValid, isSubmitting }
     } = useForm<InfoFormFields>({
         mode: 'onChange',
@@ -43,12 +44,8 @@ export const InfoStep = () => {
         }
     });
 
-    const onSubmitHandler: SubmitHandler<InfoFormFields> = (data) => {
+    const onSubmitHandler: SubmitHandler<InfoFormFields> = () => {
         if (isValid) {
-            dispatch(FormActions.setName(data.name));
-            dispatch(FormActions.setNickname(data.nickname));
-            dispatch(FormActions.setSurname(data.surname));
-            dispatch(FormActions.setSex(data.sex));
             dispatch(StatusActions.setCurrentStep(currentStep + 1));
         }
     };
@@ -56,6 +53,17 @@ export const InfoStep = () => {
     const handleBackClick = useCallback(() => {
         navigate(ROUTES.ROOT);
     }, [navigate]);
+
+    useEffect(() => {
+        return () => {
+            const { sex, name, surname, nickname } = getValues();
+
+            dispatch(FormActions.setName(name));
+            dispatch(FormActions.setNickname(nickname));
+            dispatch(FormActions.setSurname(surname));
+            dispatch(FormActions.setSex(sex));
+        };
+    }, []);
 
     return (
         <form onSubmit={handleSubmit(onSubmitHandler)}>
@@ -94,7 +102,7 @@ export const InfoStep = () => {
                     )}
                     name='sex'
                     control={control}
-                ></Controller>
+                />
             </Stack.V>
 
             <Stack.H justify='between' gap='16'>

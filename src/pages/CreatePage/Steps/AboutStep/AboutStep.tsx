@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
@@ -35,6 +35,7 @@ export const AboutStep = () => {
     const {
         register,
         handleSubmit,
+        getValues,
         formState: { errors, isValid, isSubmitting },
         watch
     } = useForm<AboutFormField>({
@@ -69,7 +70,6 @@ export const AboutStep = () => {
 
             setIsSuccess(true);
             setActive(true);
-            dispatch(FormActions.setAbout(message));
         }
     };
 
@@ -86,6 +86,14 @@ export const AboutStep = () => {
     const prevStepHandler = useCallback(() => {
         dispatch(StatusActions.setCurrentStep(currentStep - 1));
     }, [currentStep]);
+
+    useEffect(() => {
+        return () => {
+            const { field } = getValues();
+
+            dispatch(FormActions.setAbout(field));
+        };
+    }, []);
 
     return (
         <>

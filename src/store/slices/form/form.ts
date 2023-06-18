@@ -10,7 +10,7 @@ const initialState: FormSchema = {
     sex: 'man',
     about: '',
     radio: 1,
-    advantages: ['Value', 'Value', 'Value'],
+    advantages: ['👇', '💋', '😎'],
     checkbox: []
 };
 

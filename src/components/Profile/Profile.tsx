@@ -1,5 +1,5 @@
-import { Anchor, Stack, Typography } from '@/components/ui';
-import { Avatar, Icons } from '@/components';
+import { Avatar, Stack, Typography } from '@/components/ui';
+import { NetworkItem } from '@/components/Profile';
 import cl from './Profile.module.scss';
 
 interface ProfileProps {
@@ -18,12 +18,7 @@ export const Profile = ({ fullName, networks }: ProfileProps) => {
                 {networks && (
                     <Stack.H gap='16' className={cl.networks}>
                         {networks.map(({ url, name }) => (
-                            <Anchor target='_blank' key={url} to={url}>
-                                <Stack.H gap='4'>
-                                    <img src={Icons.Folder} alt='folder' />{' '}
-                                    {name}
-                                </Stack.H>
-                            </Anchor>
+                            <NetworkItem url={url} name={name} />
                         ))}
                     </Stack.H>
                 )}

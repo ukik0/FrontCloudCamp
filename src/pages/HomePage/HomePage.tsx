@@ -51,6 +51,7 @@ const Form = () => {
         if (isValid) {
             dispatch(FormActions.setEmail(data.email));
             dispatch(FormActions.setPhone(data.phone.replace(/[^\d]/g, '')));
+
             navigate(ROUTES.CREATE);
         }
     };

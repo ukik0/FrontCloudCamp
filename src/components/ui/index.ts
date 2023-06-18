@@ -6,3 +6,4 @@ export * from './Field/Field';
 export * from './Select/Select';
 export * from './Portal/Portal';
 export * from './Modal/Modal';
+export * from './Avatar/Avatar';
