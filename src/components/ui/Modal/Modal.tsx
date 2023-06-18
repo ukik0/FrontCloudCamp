@@ -1,5 +1,6 @@
 import { Dispatch, ReactNode, SetStateAction } from 'react';
-import { Portal } from '@/components/ui';
+import { Button, Portal, Stack, Typography } from '@/components/ui';
+import { Icons } from '@/components';
 import { useLockBody } from '@/utils/hooks';
 import { clsx } from '@/utils/helpers';
 import cl from './Modal.module.scss';
@@ -8,6 +9,7 @@ interface ModalProps extends ReactTagProps<'div'> {
     active: boolean;
     setActive: Dispatch<SetStateAction<boolean>>;
     className?: string;
+    isSuccess: boolean;
     children: ReactNode;
 }
 
@@ -16,6 +18,7 @@ export const Modal = ({
     setActive,
     className,
     children,
+    isSuccess,
     ...rest
 }: ModalProps) => {
     useLockBody({ active });
@@ -38,7 +41,40 @@ export const Modal = ({
                     })}
                     onClick={(e) => e.stopPropagation()}
                 >
-                    {children}
+                    <Stack.V gap='32' fill>
+                        <Stack.H fill={true} gap='32' justify='between'>
+                            <Typography variant='title-2'>
+                                {isSuccess
+                                    ? 'Форма успешно отправлена'
+                                    : 'Ошибка'}
+                            </Typography>
+
+                            <Button
+                                icon={Icons.Close}
+                                variant='icon'
+                                className={cl.close}
+                                onClick={() => setActive(false)}
+                            />
+                        </Stack.H>
+
+                        <Stack.H>
+                            <div
+                                className={clsx({
+                                    cls: cl.icon,
+                                    mods: { [cl.failed]: !isSuccess }
+                                })}
+                            >
+                                <img
+                                    src={
+                                        isSuccess ? Icons.Success : Icons.Failed
+                                    }
+                                    alt='icon'
+                                />
+                            </div>
+                        </Stack.H>
+
+                        {children}
+                    </Stack.V>
                 </div>
             </div>
         </Portal>

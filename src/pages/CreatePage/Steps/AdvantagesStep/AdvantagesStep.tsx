@@ -2,6 +2,7 @@ import { useCallback, useEffect } from 'react';
 import {
     Controller,
     SubmitHandler,
+    useController,
     useFieldArray,
     useForm
 } from 'react-hook-form';
@@ -56,6 +57,22 @@ export const AdvantagesStep = () => {
         }
     };
 
+    const {
+        field: { onChange, value }
+    } = useController({
+        control,
+        name: 'checkbox',
+        defaultValue: []
+    });
+
+    const {
+        field: { onChange: onChangeRadio, value: radioValue }
+    } = useController({
+        control,
+        name: 'radio',
+        defaultValue: undefined
+    });
+
     const handleRemoveField = useCallback(
         (index: number) => {
             remove(index);
@@ -64,15 +81,18 @@ export const AdvantagesStep = () => {
     );
 
     const handleChangeCheckboxField = useCallback(
-        (value: number) => {
-            dispatch(FormActions.setCheckbox(value));
+        (currentValue: number) => {
+            if (!value.includes(currentValue))
+                return onChange([...value, currentValue]);
+
+            return onChange(value.filter((item) => item !== currentValue));
         },
-        [dispatch]
+        [onChange, value]
     );
 
     const handleChangeRadioField = useCallback(
         (value: number) => {
-            dispatch(FormActions.setRadio(value));
+            onChangeRadio(value);
         },
         [dispatch]
     );
@@ -83,9 +103,10 @@ export const AdvantagesStep = () => {
 
     useEffect(() => {
         return () => {
-            const { advantages, radio } = getValues();
+            const { advantages, radio, checkbox } = getValues();
 
             dispatch(FormActions.setAdvantages(advantages));
+            dispatch(FormActions.setCheckbox(checkbox));
             dispatch(FormActions.setRadio(+radio));
         };
     }, []);
@@ -113,6 +134,7 @@ export const AdvantagesStep = () => {
                                         placeholder='Placeholder'
                                         error={errors.advantages?.[index]}
                                         className={cl.field}
+                                        id={`field-advantages-${index + 1}`}
                                     />
                                     <Button
                                         onClick={() => handleRemoveField(index)}
@@ -149,14 +171,11 @@ export const AdvantagesStep = () => {
                                     id={`field-checkbox-group-option-${
                                         index + 1
                                     }`}
-                                    {...register('checkbox')}
+                                    value={index + 1}
+                                    checked={value.includes(index + 1)}
                                     onChange={() =>
                                         handleChangeCheckboxField(index + 1)
                                     }
-                                    checked={checkbox.some(
-                                        (value) => value === index + 1
-                                    )}
-                                    value={index + 1}
                                 />
                                 <Typography variant='title-2'>
                                     {index + 1}
@@ -164,7 +183,7 @@ export const AdvantagesStep = () => {
                             </Stack.H>
                         ))}
                     <Typography variant='error'>
-                        {checkbox.length === 0 && errors.checkbox?.message}
+                        {errors.checkbox && errors.checkbox.message}
                     </Typography>
                 </Stack.V>
 
@@ -176,9 +195,9 @@ export const AdvantagesStep = () => {
                             <Stack.H key={index} gap='8'>
                                 <Field
                                     type='radio'
-                                    value={index + 1}
                                     {...register('radio')}
-                                    checked={radio === index + 1}
+                                    value={index + 1}
+                                    checked={radioValue === index + 1}
                                     onChange={() =>
                                         handleChangeRadioField(index + 1)
                                     }

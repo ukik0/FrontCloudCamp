@@ -7,9 +7,9 @@ const initialState: FormSchema = {
     surname: null,
     phone: null,
     email: null,
-    sex: 'man',
+    sex: undefined,
     about: '',
-    radio: 1,
+    radio: null,
     advantages: ['👇', '💋', '😎'],
     checkbox: []
 };
@@ -39,17 +39,19 @@ export const formSlice = createSlice({
         setAdvantages: (state, action: PayloadAction<string[]>) => {
             state.advantages = action.payload;
         },
-        setCheckbox: (state, action: PayloadAction<number>) => {
-            const copy = state.checkbox.filter(
-                (item) => item !== action.payload
-            );
+        setCheckbox: (state, action: PayloadAction<number[]>) => {
+            // const copy = state.checkbox.filter(
+            //     (item) => item !== action.payload
+            // );
+            //
+            // if (copy.length !== state.checkbox.length) {
+            //     state.checkbox = copy;
+            // } else {
+            //     copy.push(action.payload);
+            //     state.checkbox = copy;
+            // }
 
-            if (copy.length !== state.checkbox.length) {
-                state.checkbox = copy;
-            } else {
-                copy.push(action.payload);
-                state.checkbox = copy;
-            }
+            state.checkbox = action.payload;
         },
         setRadio: (state, action: PayloadAction<number>) => {
             state.radio = action.payload;

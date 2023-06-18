@@ -14,6 +14,7 @@ import {
     ROUTES
 } from '@/utils/constants';
 import cl from './HomePage.module.scss';
+import { useEffect } from 'react';
 
 const HomePage = () => {
     return (
@@ -28,6 +29,7 @@ export default HomePage;
 
 const Form = () => {
     const navigate = useNavigate();
+
     const dispatch = useDispatch();
 
     const email = useTypedSelector(getEmail);
@@ -36,6 +38,7 @@ const Form = () => {
     const {
         register,
         handleSubmit,
+        getValues,
         control,
         formState: { errors, isValid, isSubmitting }
     } = useForm<AuthFormFields>({
@@ -47,14 +50,20 @@ const Form = () => {
         }
     });
 
-    const onSubmitHandler: SubmitHandler<AuthFormFields> = (data) => {
+    const onSubmitHandler: SubmitHandler<AuthFormFields> = () => {
         if (isValid) {
-            dispatch(FormActions.setEmail(data.email));
-            dispatch(FormActions.setPhone(data.phone.replace(/[^\d]/g, '')));
-
             navigate(ROUTES.CREATE);
         }
     };
+
+    useEffect(() => {
+        return () => {
+            const { phone, email } = getValues();
+
+            dispatch(FormActions.setEmail(email));
+            dispatch(FormActions.setPhone(phone.replace(/[^\d]/g, '')));
+        };
+    }, []);
 
     return (
         <form onSubmit={handleSubmit(onSubmitHandler)}>

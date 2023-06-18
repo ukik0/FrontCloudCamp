@@ -4,7 +4,7 @@ export interface FormSchema {
     surname: string | null;
     phone: string | null;
     email: string | null;
-    sex: 'man' | 'woman';
+    sex: 'man' | 'woman' | undefined;
     advantages: string[];
     radio: number | null;
     checkbox: number[];

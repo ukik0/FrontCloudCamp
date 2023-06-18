@@ -3,7 +3,6 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { Icons } from '@/components';
 import { Button, Field, Modal, Stack, Typography } from '@/components/ui';
 import {
     FormActions,
@@ -140,55 +139,26 @@ export const AboutStep = () => {
                 </Stack.H>
             </form>
 
-            <Modal active={active} setActive={setActive}>
-                <Stack.V gap='32' fill>
-                    <Stack.H fill={true} gap='32' justify='between'>
-                        <Typography variant='title-2'>
-                            {isSuccess ? 'Форма успешно отправлена' : 'Ошибка'}
-                        </Typography>
-
+            <Modal active={active} setActive={setActive} isSuccess={isSuccess}>
+                <Stack.H>
+                    {isSuccess ? (
                         <Button
-                            icon={Icons.Close}
-                            variant='icon'
-                            className={cl.close}
-                            onClick={() => setActive(false)}
-                        />
-                    </Stack.H>
-
-                    <Stack.H>
-                        <div
-                            className={clsx({
-                                cls: cl.icon,
-                                mods: { [cl.failed]: !isSuccess }
-                            })}
+                            onClick={handleButtonClick}
+                            variant='contained'
+                            id='button-to-main'
                         >
-                            <img
-                                src={isSuccess ? Icons.Success : Icons.Failed}
-                                alt='icon'
-                            />
-                        </div>
-                    </Stack.H>
-
-                    <Stack.H>
-                        {isSuccess ? (
-                            <Button
-                                onClick={handleButtonClick}
-                                variant='contained'
-                                id='button-to-main'
-                            >
-                                На главную
-                            </Button>
-                        ) : (
-                            <Button
-                                onClick={handleButtonClick}
-                                variant='contained'
-                                id='button-close'
-                            >
-                                Закрыть
-                            </Button>
-                        )}
-                    </Stack.H>
-                </Stack.V>
+                            На главную
+                        </Button>
+                    ) : (
+                        <Button
+                            onClick={handleButtonClick}
+                            variant='contained'
+                            id='button-close'
+                        >
+                            Закрыть
+                        </Button>
+                    )}
+                </Stack.H>
             </Modal>
         </>
     );
